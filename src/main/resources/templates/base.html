@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      class=""
+      xmlns="http://www.w3.org/1999/html"
+      th:fragment="parent(content,title,script)">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">SCM</title>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{'/css/output.css'}"/>
+</head>
+<body class="bg-gray-200 dark:bg-gray-800 dark:text-white">
+<div th:replace="~{navbar::navbar}"></div>
+<div class="p-4 h-screen w-full">
+    <section th:replace="${content}"></section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<script th:src="@{'/js/script.js'}"></script>
+<th:block th:replace="${script}"></th:block>
+<!--<footer class="p-4">Footer: Coding with Deep</footer>-->
+</body>
+</html>

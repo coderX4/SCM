@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{base:: parent(~{::#content},~{::title},~{})}"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+</head>
+<body>
+<div id="content">
+  <div class="grid grid-cols-12 content-center">
+    <div class="col-span-3"></div>
+    <div class="col-span-6">
+      <div class="w-full p-4 bg-gray-300 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div th:replace="~{message::messagebox}"></div>
+        <form
+                th:action="@{'/do-register'}"
+                method="post"
+                th:object="${userForm}"
+                class="space-y-3"
+        >
+          <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">Sign in to our platform</h5>
+          <div>
+            <label for="userName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+            <input type="text" th:field="*{userName}" name="userName" id="userName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Enter your Name" />
+            <p th:if="${errorMessages != null and errorMessages.containsKey('userName')}"
+               th:text="${errorMessages['userName']}"
+               class="text-red-600 px-1 py-2">Username is Required
+            </p>
+          </div>
+          <div>
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+            <input type="email" th:field="*{email}" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Enter your Email"/>
+            <p th:if="${errorMessages != null and errorMessages.containsKey('email')}"
+               th:text="${errorMessages['email']}"
+               class="text-red-600 px-1 py-2">
+            </p>
+          </div>
+          <div>
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+            <input type="password" th:field="*{password}" name="password" id="password" placeholder="Enter strong password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"/>
+            <p th:if="${errorMessages != null and errorMessages.containsKey('password')}"
+               th:text="${errorMessages['password']}"
+               class="text-red-600 px-1 py-2">
+            </p>
+          </div>
+          <div>
+            <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+            <input type="text" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" placeholder="Enter contact info" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+            <p th:if="${errorMessages != null and errorMessages.containsKey('phoneNumber')}"
+               th:text="${errorMessages['phoneNumber']}"
+               class="text-red-600 px-1 py-2">
+            </p>
+          </div>
+          <div>
+            <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Yourself</label>
+            <textarea id="about" th:field="*{about}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write about yourself here..."></textarea>
+            <p th:if="${errorMessages != null and errorMessages.containsKey('about')}"
+               th:text="${errorMessages['about']}"
+               class="text-red-600 px-1 py-2">
+            </p>
+          </div>
+          <div class=" flex space-x-3 justify-center gap-8">
+            <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign Up</button>
+            <button type="reset" class="w-full text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800">Reset</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
