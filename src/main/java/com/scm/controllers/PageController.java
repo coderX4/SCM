@@ -23,7 +23,9 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    public PageController() {
+    @RequestMapping({"/"})
+    public String index() {
+        return "redirect:/home";
     }
 
     @RequestMapping({"/home"})

@@ -1,12 +1,14 @@
 package com.scm.services.impl;
 
 import com.scm.entity.User;
+import com.scm.helper.AppConstants;
 import com.scm.helper.ResourceNotFoundException;
 import com.scm.repositories.UserRepo;
 import com.scm.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl() {
@@ -25,6 +30,10 @@ public class UserServiceImpl implements UserService {
     public User saveUser(User user) {
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
+        //user password encoder
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user roles
+        user.setRolesList(List.of(AppConstants.ROLE_USER));
         return (User)this.userRepo.save(user);
     }
 
@@ -36,7 +45,7 @@ public class UserServiceImpl implements UserService {
         User user2 = (User)this.userRepo.findById(user.getUserId()).orElseThrow(() -> {
             return new ResourceNotFoundException("User Not Found");
         });
-        user2.setUserName(user.getUserName());
+        user2.setUserName(user.getUsername());
         user2.setPassword(user.getPassword());
         user2.setEmail(user.getEmail());
         user2.setAbout(user.getAbout());
