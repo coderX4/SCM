@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 public class SecurityConfig {
@@ -58,8 +58,30 @@ public class SecurityConfig {
 
         httpSecurity.formLogin(formLogin->{
             formLogin.loginPage("/login");
+            formLogin.loginProcessingUrl("/do-authenticate");
+            formLogin.successForwardUrl("/after-authenticate");
+            formLogin.failureUrl("/login?error=true");
+            formLogin.usernameParameter("email");
+            formLogin.passwordParameter("password");
+//            formLogin.successHandler(new AuthenticationSuccessHandler() {
+//                @Override
+//                public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+//
+//                }
+//            });
+//            formLogin.failureHandler(new AuthenticationFailureHandler() {
+//
+//                @Override
+//                public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+//
+//                }
+//            });
         });
 
+        httpSecurity.logout(logout->{
+            logout.logoutUrl("/user/do-logout");
+            logout.logoutSuccessUrl("/login?logout=true");
+        });
 
         return httpSecurity.build();
     }
