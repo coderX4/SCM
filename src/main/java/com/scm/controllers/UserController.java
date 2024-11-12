@@ -1,12 +1,20 @@
 package com.scm.controllers;
 
+import com.scm.config.OAuthAuthenticationSuccessHandler;
+import com.scm.entity.User;
+import com.scm.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping({"/user"})
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     //user dashboard
     @RequestMapping(value = {"/dashboard"}, method = RequestMethod.GET)
