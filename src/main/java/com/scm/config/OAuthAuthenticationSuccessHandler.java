@@ -84,37 +84,6 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
             logger.info("Oauthorization through: Unknown Provider");
         }
 
-        /*
-
-        DefaultOAuth2User oAuth2User = (DefaultOAuth2User)authentication.getPrincipal();
-
-//        logger.info("oAuth2Useruser: {}", oAuth2Useruser.getName());
-//        oAuth2Useruser.getAttributes().forEach((key, value) -> {
-//            logger.info("key: {}, value: {}", key, value);
-//        });
-//        logger.info(oAuth2Useruser.getAuthorities().toString());
-
-        String Email = oAuth2User.getAttribute("email");
-        logger.info("Email: " + Email);
-        String userName = oAuth2User.getAttribute("name");
-        logger.info("userName: " + userName);
-        String picture = oAuth2User.getAttribute("picture");
-        logger.info("picture: " + picture);
-
-        //create user and save in database
-        User user = new User();
-        user.setEmail(Email);
-        user.setUserName(userName);
-        user.setProfilePic(picture);
-        user.setPassword("SCM@123");
-        user.setUserId(UUID.randomUUID().toString());
-        user.setProvider(Providers.GOOGLE);
-        user.setEnabled(true);
-        user.setEmailVerified(true);
-        user.setProviderUserId(oAuth2User.getName());
-        user.setRolesList(List.of(AppConstants.ROLE_USER));
-        user.setAbout("This Account is created by google login");
-*/
         User user1 = userRepo.findByEmail(user.getEmail()).orElse(null);
         if (user1 == null) {
             userRepo.save(user);

@@ -5,9 +5,11 @@
     <title>Profile</title>
 </head>
 <body>
-<h1>User Google profile page</h1>
+<h1>User <span th:text="${user.provider}"></span> profile page</h1>
 
 <div>
+    <h1>User: <span th:text="${user.username}"></span></h1>
+    <h1>Email: <span th:text="${user.email}"></span></h1>
 </div>
 </body>
 </html>
