@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      th:replace="~{base:: parent(~{::#content},~{::title},~{})}"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title th:text="${userName}+' | SCM'">Profile Page</title>
 </head>
 <body>
-<h1>User <span th:text="${user.provider}"></span> profile page</h1>
+<div id="content">
+    <h1>User <span th:text="${loggedInUser.provider}"></span> profile page</h1>
 
-<div>
-    <h1>User: <span th:text="${user.username}"></span></h1>
-    <h1>Email: <span th:text="${user.email}"></span></h1>
+    <div>
+        <h1>User: <span th:text="${userName}"></span></h1>
+        <h1>Email: <span th:text="${loggedInUser.email}"></span></h1>
+    </div>
 </div>
 </body>
 </html>

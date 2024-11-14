@@ -12,25 +12,27 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice
-public class RouteController {
+public class RootController {
     @Autowired
     UserService userService;
 
-    Logger logger = LoggerFactory.getLogger(RouteController.class);
+    Logger logger = LoggerFactory.getLogger(RootController.class);
     @ModelAttribute
     public void addLoggedInUserInformation(Authentication authentication, Model model){
         if(authentication == null){
             return;
         }
         System.out.println("Added Logged In User Information");
-        String userName = Helper.getEmailOfLoggedInUser(authentication);
-        logger.info("User: {}", userName);
-        User user = userService.getUserByEmail(userName);
+        String user1 = Helper.getEmailOfLoggedInUser(authentication);
+        logger.info("User: {}", user1);
+        User user = userService.getUserByEmail(user1);
+
         if(user == null){
             model.addAttribute("error", "User not found");
         }
         else{
-            model.addAttribute("user", user);
+            model.addAttribute("userName", user.getUName());
+            model.addAttribute("loggedInUser", user);
         }
     }
 }
