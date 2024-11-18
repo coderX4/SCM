@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{base:: parent(~{::#content},~{::title},~{})}"
+      th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{})}"
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,9 @@
 </head>
 <body>
 <div id="content">
-    <h1>User <span th:text="${loggedInUser.provider}"></span> profile page</h1>
-
-    <div>
+    <div class="flex justify-center flex-col items-center">
+        <h1>This is Profile Page</h1>
+        <h1>User <span th:text="${loggedInUser.provider}"></span> profile page</h1>
         <h1>User: <span th:text="${userName}"></span></h1>
         <h1>Email: <span th:text="${loggedInUser.email}"></span></h1>
     </div>

@@ -11,12 +11,11 @@
     <link rel="stylesheet" th:href="@{'/css/style.css'}"/>
 </head>
 <body class="bg-gray-200 dark:bg-gray-800 dark:text-white">
-<div th:if="${loggedInUser}">
-    <div th:replace="~{user/user_navbar::user_navbar}"></div>
+<div>
+    <div th:replace="~{navbar::navbar}"></div>
 </div>
-<div th:replace="~{navbar::navbar}"></div>
 <div class="p-4 h-screen w-full">
-    <section th:replace="${content}"></section>
+    <div th:replace="${content}"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 <script th:src="@{'/js/script.js'}"></script>

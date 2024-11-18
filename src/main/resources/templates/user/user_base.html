@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      class=""
+      xmlns="http://www.w3.org/1999/html"
+      th:fragment="parent1(content,title,script)">
+<head>
+  <meta charset="UTF-8">
+  <title th:replace="${title}">SCM</title>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{'/css/output.css'}"/>
+  <link rel="stylesheet" th:href="@{'/css/style.css'}"/>
+</head>
+<body class="bg-gray-200 dark:bg-gray-800 dark:text-white">
+<div th:if="${loggedInUser}">
+  <div th:replace="~{user/user_navbar::user_navbar}"></div>
+  <div th:replace="~{user/user_sidebar::user_sidebar}"></div>
+</div>
+
+<div class="p-4 sm:ml-64">
+  <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
+    <div class="h-screen mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div th:replace="${content}"></div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<script th:src="@{'/js/script.js'}"></script>
+<th:block th:replace="${script}"></th:block>
+<!--<footer class="p-4">Footer: Coding with Deep</footer>-->
+</body>
+</html>

@@ -32,7 +32,6 @@ public class PageController {
     @RequestMapping({"/home"})
     public String home(Model model) {
         System.out.println("home page handler");
-        model.addAttribute("name", "Dogggg,,,");
         return "home";
     }
 

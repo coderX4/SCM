@@ -2,9 +2,12 @@
 export default {
   content: ["./src/main/resources/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {screens: {
+        'custom-lg': { min: '1024px' },
+      },},
   },
   plugins: [],
   darkMode:"selector",
 }
+
 
