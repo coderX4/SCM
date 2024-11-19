@@ -11,63 +11,115 @@
     <div class="grid grid-cols-12 content-center">
         <div class="col-span-3"></div>
         <div class="col-span-6">
-            <div class="w-full p-3 bg-gray-300 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-                <div th:replace="~{message::messagebox}"></div>
-                <form   method="post"
-                        th:action="@{'/do-authenticate'}"
-                        class="space-y-3"
-                >
-                    <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">Login in to our platform</h5>
+            <div class="w-full p-6 bg-gray-300 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <form method="post" th:action="@{'/do-authenticate'}" class="space-y-6">
+                    <!-- Title -->
+                    <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">
+                        Login to Our Platform
+                    </h5>
 
-                    <div th:if="${param.error}"
-                         class="mb-3 text-center text-red-600">
-                        Invalid Username or Password
-                    </div>
-                    <div th:if="${param.logout}"
-                         class="mb-3 text-center text-green-600">
-                        You have been logged out.
-                    </div>
+                    <!-- Form Inputs -->
                     <div>
-                        <label for="email" class="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email"  name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Enter your Email"/>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Email
+                        </label>
+                        <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                class="w-full p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                        />
                     </div>
+
                     <div>
-                        <label for="password" class="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password"  name="password" id="password" placeholder="Enter Your password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"/>
-
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Password
+                        </label>
+                        <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Enter your password"
+                                class="w-full p-2.5 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                        />
                     </div>
 
-                    <div class="mb-5">
-                        <div class=" flex space-x-3 justify-center gap-8">
-                            <button type="submit" class="w-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign Up</button>
-                            <button type="reset" class="w-1/2 text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800">Reset</button>
-                        </div>
+                    <!-- Buttons Section -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Submit Button -->
+                        <button
+                                type="submit"
+                                class="w-full py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                            Submit
+                        </button>
+
+                        <!-- Reset Button -->
+                        <button
+                                type="reset"
+                                class="w-full py-2.5 text-sm font-medium text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 rounded-lg dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+                        >
+                            Reset
+                        </button>
                     </div>
 
+                    <!-- Social Login Buttons -->
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <!-- Google Sign-In -->
+                        <a
+                                data-th-href="@{'/oauth2/authorization/google'}"
+                                class="py-2.5 px-4 text-center text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 rounded-lg flex items-center justify-center"
+                        >
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    fill="currentColor"
+                                    class="mr-2"
+                                    viewBox="0 0 48 48"
+                            >
+                                <path
+                                        fill="#FFC107"
+                                        d="M43.6 20.4h-3.3v-.1H24v7.3h11.1c-1.4 3.7-4.6 6.4-8.6 7.4v6h6.1c5.3-4.9 8.3-12 8.3-20.6 0-1.3-.1-2.6-.3-3.7z"
+                                />
+                                <path
+                                        fill="#FF3D00"
+                                        d="M24 44c5.4 0 9.9-1.8 13.2-4.8l-6.1-6c-2 1.4-4.5 2.3-7.1 2.3-5.5 0-10.1-3.7-11.7-8.7h-6v5.4c3.3 6.6 10.2 11.3 18.1 11.3z"
+                                />
+                                <path
+                                        fill="#4CAF50"
+                                        d="M12.3 27.5c-.5-1.5-.8-3.1-.8-4.7s.3-3.2.8-4.7v-5.4h-6C4.5 16.4 4 19.1 4 21.8s.5 5.4 1.3 7.7l6-5.4z"
+                                />
+                                <path
+                                        fill="#1976D2"
+                                        d="M24 9.8c3 0 5.6 1 7.7 2.8l5.8-5.8C33.9 3.6 29.4 2 24 2 16.1 2 9.3 6.7 6 13.3l6 5.4c1.5-5 6.2-8.9 12-8.9z"
+                                />
+                            </svg>
+                            Sign in with Google
+                        </a>
+
+                        <!-- GitHub Sign-In -->
+                        <a
+                                data-th-href="@{'/oauth2/authorization/github'}"
+                                class="py-2.5 px-4 text-center text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 rounded-lg flex items-center justify-center"
+                        >
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    fill="currentColor"
+                                    class="mr-2"
+                                    viewBox="0 0 1792 1792"
+                            >
+                                <path
+                                        d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103z"
+                                />
+                            </svg>
+                            Sign in with GitHub
+                        </a>
+                    </div>
                 </form>
-
-                <div class="social-button-container flex justify-center items-center flex-col space-y-4 mt-10">
-                    <a class="px-3 py-2 w-1/2 font-semibold rounded-lg login-with-google-btn text-center"
-                       data-th-href="@{'/oauth2/authorization/google'}">
-                        Sign in with Google</a>
-
-                    <a data-th-href="@{'/oauth2/authorization/github'}"
-                       type="button"
-                       class="py-2 px-2 w-1/2 flex justify-center items-center bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                class="mr-2"
-                                viewBox="0 0 1792 1792">
-                            <path
-                                    d="M896 128q209 0 385.5 103t279.5 279.5 103 385.5q0 251-146.5 451.5t-378.5 277.5q-27 5-40-7t-13-30q0-3 .5-76.5t.5-134.5q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-119-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-85-13.5q-45 113-8 204-79 87-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-39 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 88.5t.5 54.5q0 18-13 30t-40 7q-232-77-378.5-277.5t-146.5-451.5q0-209 103-385.5t279.5-279.5 385.5-103zm-477 1103q3-7-7-12-10-3-13 2-3 7 7 12 9 6 13-2zm31 34q7-5-2-16-10-9-16-3-7 5 2 16 10 10 16 3zm30 45q9-7 0-19-8-13-17-6-9 5 0 18t17 7zm42 42q8-8-4-19-12-12-20-3-9 8 4 19 12 12 20 3zm57 25q3-11-13-16-15-4-19 7t13 15q15 6 19-6zm63 5q0-13-17-11-16 0-16 11 0 13 17 11 16 0 16-11zm58-10q-2-11-18-9-16 3-14 15t18 8 14-14z"
-                            ></path>
-                        </svg>
-                        Sign in with GitHub
-                    </a>
-                </div>
             </div>
 
         </div>
