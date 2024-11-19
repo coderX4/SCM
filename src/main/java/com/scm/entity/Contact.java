@@ -1,6 +1,10 @@
 package com.scm.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +15,10 @@ import java.util.List;
 @Table(
         name = "contact_table"
 )
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Contact {
     @Id
     private String id;
@@ -22,7 +30,7 @@ public class Contact {
     @Column(length = 2000)
     private String description;
     private boolean favorite = false;
-    private String websiteLink;
+    private String instagramLink;
     private String linkedinLink;
     @ManyToOne
     private User user;

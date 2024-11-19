@@ -77,6 +77,8 @@ public class PageController {
 
             // Ensure errorMessages is always added to the model
             model.addAttribute("errorMessages", errorMessages);
+            Message message = Message.builder().content("Please Fill the Correct Details").type(MessageType.red).build();
+            session.setAttribute("message", message);
             return "signup";
 
         } else {
