@@ -28,5 +28,7 @@ public class ContactForm {
     private boolean favorite;
     private String instagramLink;
     private String linkedinLink;
+
+
     private MultipartFile picture;
 }

@@ -42,4 +42,6 @@ public class Contact {
     )
     private List<SocialLink> socialLinks = new ArrayList();
 
+    private String cloudinaryImagePublicId;
+
 }

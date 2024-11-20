@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{})}">
+<html lang="en" th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{::script})}">
 <head>
     <meta charset="UTF-8">
     <title>Add Contact</title>
@@ -10,7 +10,9 @@
         <div class="w-full max-w-2xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <form class="space-y-6"
                   th:action="@{'/user/contact/process-contact'}"
-                  method="post" th:object="${contactForm}">
+                  method="post" th:object="${contactForm}"
+                  enctype="multipart/form-data"
+            >
                 <h5 class=" text-center text-2xl font-medium text-gray-900 dark:text-white">Add Contact</h5>
                 <div th:replace="~{message::messagebox}"></div>
                 <div>
@@ -114,7 +116,15 @@
 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="contact_picture">Profile Pic</label>
-                    <input class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="contact_picture" type="file">
+                    <input th:field="*{picture}"
+                           class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                           id="contact_picture" type="file">
+                    <img
+                            class="h-20 rounded-lg shadow m-3"
+                            src=""
+                            id="upload_image_preview"
+                            alt=""
+                    />
                 </div>
 
                 <div>
@@ -142,5 +152,6 @@
     </div>
 </div>
 </div>
+<script th:src="@{'/js/admin.js'}"></script>
 </body>
 </html>
