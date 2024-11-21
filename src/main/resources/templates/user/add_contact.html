@@ -119,12 +119,19 @@
                     <input th:field="*{picture}"
                            class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            id="contact_picture" type="file">
-                    <img
-                            class="h-20 rounded-lg shadow m-3"
-                            src=""
-                            id="upload_image_preview"
-                            alt=""
-                    />
+                    <div class="flex justify-center">
+                        <img
+                                class="h-20 rounded-lg shadow m-3"
+                                src=""
+                                id="upload_image_preview"
+                                alt=""
+                        />
+                    </div>
+
+                    <p th:if="${errorMessages != null and errorMessages.containsKey('picture')}"
+                       th:text="${errorMessages['picture']}"
+                       class="text-red-600 px-1 py-2">Username is Required
+                    </p>
                 </div>
 
                 <div>

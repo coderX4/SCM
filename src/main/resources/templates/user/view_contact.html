@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{})}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div id="content" class="p-6">
+  <div class="flex flex-col items-center">
+    <h1 class="text-5xl font-bold mb-6">All Contacts</h1>
+    <div class="w-full max-w-6xl">
+      <div class="relative shadow-md sm:rounded-lg bg-white dark:bg-gray-800 p-6">
+        <!-- Search and Action Bar -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0 pb-4">
+          <div class="relative">
+            <input type="text" id="table-search-users"
+                   class="block w-full md:w-80 p-2 pl-10 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                   placeholder="Search for users">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19 19l-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Responsive Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">Phone Number</th>
+              <th scope="col" class="px-6 py-3">Social Media Links</th>
+              <th scope="col" class="px-6 py-3">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${contacts}"
+                th:object="${c}"
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="px-6 py-4 flex items-center space-x-3">
+                <img
+                     th:src="@{*{picture}}"
+                     class="w-10 h-10 rounded-full"  alt="Neil Sims">
+                <div>
+                  <div th:text="*{name}"
+                       class="text-base font-semibold text-gray-900 dark:text-white"
+                  >Name</div>
+                  <div th:text="*{email}"
+                       class="text-sm text-gray-500 dark:text-gray-400">
+                    email@yoho.com</div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                  <span class="inline-flex items-center space-x-2 justify-center">
+                    <svg class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <!--!Font Awesome Free 6.7.0 by @fontawesome - https://fontawesome.com -->
+                      <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                    </svg>
+                    <span th:text="*{phoneNumber}"></span>
+                  </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <div class="flex flex-col space-y-2">
+                  <!-- Instagram Link -->
+                  <span class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                      <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                    </svg>
+                    <a th:href="*{instagramLink}" th:target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">Instagram</a>
+                  </span>
+                                <!-- LinkedIn Link -->
+                                <span class="flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                      <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+                    </svg>
+                    <a th:href="*{linkedinLink}" th:target="_blank" class="text-blue-600 hover:underline dark:text-blue-400">LinkedIn</a>
+                  </span>
+                </div>
+              </td>
+
+              <td class="px-6 py-4">
+                <a href="#" class="text-blue-600 hover:underline dark:text-blue-400">Edit user</a>
+              </td>
+            </tr>
+            <!-- Repeat similar rows -->
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

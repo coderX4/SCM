@@ -1,5 +1,6 @@
 package com.scm.forms;
 
+import com.scm.validators.ValidFile;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -29,6 +30,6 @@ public class ContactForm {
     private String instagramLink;
     private String linkedinLink;
 
-
+    @ValidFile
     private MultipartFile picture;
 }

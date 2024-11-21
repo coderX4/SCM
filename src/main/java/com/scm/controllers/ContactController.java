@@ -16,11 +16,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -88,5 +90,14 @@ public class ContactController {
             session.setAttribute("message", message);
             return "redirect:/user/contact/add";
         }
+    }
+
+    @GetMapping(value = {"/view-contact"})
+    public String viewContact(Authentication authentication, Model model) {
+        String userEmail = Helper.getEmailOfLoggedInUser(authentication);
+        User user = userService.getUserByEmail(userEmail);
+        List<Contact> contacts = contactService.getByUser(user);
+        model.addAttribute("contacts", contacts);
+        return "user/view_contact";
     }
 }
