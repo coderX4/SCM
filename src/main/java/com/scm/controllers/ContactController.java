@@ -105,4 +105,31 @@ public class ContactController {
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
         return "user/view_contact";
     }
+
+    //search handler
+    @RequestMapping({"/search"})
+    public String searchHandler(
+            @RequestParam("field") String field,
+            @RequestParam("keyword") String value,
+            @RequestParam(value="page",defaultValue = "0") int page,
+            @RequestParam(value="size",defaultValue = AppConstants.PAGE_SIZE+"") int size,
+            @RequestParam(value ="sortBy",defaultValue = "name") String sortBy,
+            @RequestParam(value="direction",defaultValue = "asc") String direction,
+            Model model
+    ){
+        System.out.println("field: "+field+" and keyword: "+value);
+        Page<Contact> pageContact = null;
+        if(field.equalsIgnoreCase("name")){
+            pageContact = contactService.searchByName(value,size,page,sortBy,direction);
+        }
+        else if(field.equalsIgnoreCase("phone")){
+            pageContact = contactService.searchByPhoneNumber(value,size,page,sortBy,direction);
+        } else if(field.equalsIgnoreCase("email")){
+            pageContact = contactService.searchByEmail(value,size,page,sortBy,direction);
+        }
+        System.out.println(pageContact);
+        model.addAttribute("contacts",pageContact);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+        return "user/search";
+    }
 }

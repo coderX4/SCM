@@ -13,7 +13,10 @@ public interface ContactService {
     void delete(String id);
     List<Contact> getAll();
     Contact getById(String id);
-    List<Contact> search(String name, String email,String phoneNumber);
     List<Contact> getByUserId(String userId);
     Page<Contact> getByUser(User user,int page,int size,String sortField,String sortDirection);
+    Page<Contact> searchByName(String nameKeyword,int size,int page,String sortBy,String orderBy);
+    Page<Contact> searchByPhoneNumber(String phoneNumberKeyword,int size,int page,String sortBy,String orderBy);
+    Page<Contact> searchByEmail(String emailKeyword,int size,int page,String sortBy,String orderBy);
+
 }
