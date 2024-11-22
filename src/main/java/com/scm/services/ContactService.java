@@ -15,8 +15,8 @@ public interface ContactService {
     Contact getById(String id);
     List<Contact> getByUserId(String userId);
     Page<Contact> getByUser(User user,int page,int size,String sortField,String sortDirection);
-    Page<Contact> searchByName(String nameKeyword,int size,int page,String sortBy,String orderBy);
-    Page<Contact> searchByPhoneNumber(String phoneNumberKeyword,int size,int page,String sortBy,String orderBy);
-    Page<Contact> searchByEmail(String emailKeyword,int size,int page,String sortBy,String orderBy);
+    Page<Contact> searchByName(String nameKeyword,int size,int page,String sortBy,String orderBy,User user);
+    Page<Contact> searchByPhoneNumber(String phoneNumberKeyword,int size,int page,String sortBy,String orderBy,User user);
+    Page<Contact> searchByEmail(String emailKeyword,int size,int page,String sortBy,String orderBy,User user);
 
 }

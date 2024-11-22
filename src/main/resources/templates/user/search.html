@@ -8,19 +8,21 @@
 <div id="content">
     <div class="flex justify-center flex-col items-center">
         <h1 class="text-3xl font-bold mb-6">Search page</h1>
+        <h3 class="text-1xl font-bold mb-6" th:text="${contacts.totalElements}+ ' results found..'"></h3>
         <div class="w-full max-w-6xl">
             <div class="relative shadow-md sm:rounded-lg bg-white dark:bg-gray-800 p-6">
 
                 <!-- Search functionality -->
                 <div class="pb-2.5">
 
-                    <form class="max-w-lg mx-auto" th:action="@{'/user/contact/search'}">
+                    <form class="max-w-lg mx-auto" th:object="${contactSearchForm}"
+                          th:action="@{'/user/contact/search'}">
                         <div class="flex">
 
                             <div>
                                 <!-- Dropdown Select -->
-                                <select name="field" id="search-field" class="flex-shrink-0 z-10 py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
-                                    <option>Search By</option>
+                                <select th:field="*{field}" id="search-field" class="flex-shrink-0 z-10 py-2.5 px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
+                                    <option selected value="">Search By</option>
                                     <option value="name">Name</option>
                                     <option value="phone">Phone</option>
                                     <option value="email">Email</option>
@@ -28,7 +30,7 @@
                             </div>
 
                             <div class="relative w-full">
-                                <input  name="keyword" type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                                <input  th:field="*{value}"  type="search" id="search-dropdown" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
                                         placeholder="Search By Name, Phone, Email..."/>
                                 <button type="submit" class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -41,11 +43,12 @@
                     </form>
 
                 </div>
-
-
+                <div th:if="${emptyContact}" class="text-center text-5xl">
+                    <h1>No results found..</h1>
+                </div>
                 <!-- Responsive Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <div th:unless="${emptyContact}" class="overflow-x-auto">
+                    <table  class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">Name</th>
@@ -142,7 +145,7 @@
                             <ul class="flex items-center -space-x-px h-10 text-base">
 
                                 <li>
-                                    <a th:href="@{'/user/contact/search?size='+${pageSize}+'&page='+${contacts.getNumber() - 1}}"
+                                    <a th:href="@{'/user/contact/search?size='+${pageSize}+'&page='+${contacts.getNumber() - 1}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                                        th:classappend="${contacts.isFirst()} ? 'disabled pointer-events-none opacity-50' : ''"
                                        class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                         <span class="sr-only">Previous</span>
@@ -152,21 +155,18 @@
                                     </a>
                                 </li>
 
-
                                 <li th:each="index : ${#numbers.sequence(0, contacts.totalPages - 1)}"
                                     th:class="${contacts.number == index}
                     ? 'bg-blue-200 text-black dark:bg-gray-600 dark:text-white-200'
                     : 'bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-400'">
-                                    <a th:href="@{'/user/contact?size='+${pageSize}+'&page='+${index}}"
+                                    <a th:href="@{'/user/contact/search?size='+${pageSize}+'&page='+${index}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                                        class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white">
                                         <span th:text="${index + 1}"></span>
                                     </a>
                                 </li>
 
-
-
                                 <li>
-                                    <a th:href="@{'/user/contact/search?size='+${pageSize}+'&page='+${contacts.getNumber() + 1}}"
+                                    <a th:href="@{'/user/contact/search?size='+${pageSize}+'&page='+${contacts.getNumber() + 1}+'&field='+${contactSearchForm.field}+'&value='+${contactSearchForm.value}}"
                                        th:classappend="${contacts.isLast()} ? 'disabled pointer-events-none opacity-50' : ''"
                                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                         <span class="sr-only">Next</span>
@@ -178,7 +178,6 @@
                             </ul>
                         </nav>
                     </div>
-
 
                 </div>
             </div>
