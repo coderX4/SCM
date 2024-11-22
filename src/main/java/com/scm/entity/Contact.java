@@ -1,5 +1,6 @@
 package com.scm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Contact {
     private String instagramLink;
     private String linkedinLink;
     @ManyToOne
+    @JsonIgnore
     private User user;
     @OneToMany(
             mappedBy = "contact",
