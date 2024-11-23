@@ -22,7 +22,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -144,11 +143,26 @@ public class ContactController {
 
     //delete handler
     @RequestMapping({"/delete/{contactId}"})
-    public String deleteContact(@PathVariable("contactId") String contactId, Authentication authentication, Model model) {
+    public String deleteContact(@PathVariable("contactId") String contactId, Model model) {
         contactService.delete(contactId);
         System.out.println("Contact deleted successfully");
         return "redirect:/user/contact?size="+AppConstants.PAGE_SIZE+"&page=0";
     }
+
+    //delete handler for search page
+    @RequestMapping({"/s-delete/{contactId}/{field}/{value}"})
+    public String deleteContactOnSearch(
+            @PathVariable("contactId") String contactId,
+            @PathVariable("field") String field,
+            @PathVariable("value") String value,
+            Model model
+    ) {
+        contactService.delete(contactId);
+        System.out.println("Contact deleted successfully");
+        System.out.println("Field: " + field + ", Value: " + value);
+        return "redirect:/user/contact/search?size=" + AppConstants.PAGE_SIZE + "&page=0&field=" + field + "&value=" + value;
+    }
+
 
     //update contact view
     @GetMapping({"/view/{contactId}"})
