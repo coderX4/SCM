@@ -54,5 +54,3 @@ function changePageTheme(theme, oldTheme) {
     document.querySelector("html").classList.add(theme);
 
 }
-
-//change page change theme
