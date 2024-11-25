@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @Column(length = 10000)
     private String profilePic;
     @Getter(AccessLevel.NONE)
-    private boolean enabled = true;
+    private boolean enabled = false;
     private boolean emailVerified = false;
     private boolean phoneNumberVerified = false;
     @Enumerated(EnumType.STRING)

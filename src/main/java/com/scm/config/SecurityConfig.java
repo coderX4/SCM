@@ -2,7 +2,6 @@ package com.scm.config;
 
 import com.scm.services.impl.SecurityCustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,6 +31,12 @@ public class SecurityConfig {
 
     @Autowired
     private SecurityCustomUserDetailService userDetailsService;
+
+    @Autowired
+    private AuthenticationFailure authenticationFailure;
+
+    @Autowired
+    private LogoutSuccess logoutSuccess;
 
     //url configured here
     //whether which url should be protected and which should not
@@ -67,6 +72,8 @@ public class SecurityConfig {
             formLogin.failureUrl("/login?error=true");
             formLogin.usernameParameter("email");
             formLogin.passwordParameter("password");
+
+            formLogin.failureHandler(authenticationFailure);
 //            formLogin.successHandler(new AuthenticationSuccessHandler() {
 //                @Override
 //                public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -85,6 +92,7 @@ public class SecurityConfig {
         httpSecurity.logout(logout->{
             logout.logoutUrl("/user/do-logout");
             logout.logoutSuccessUrl("/login?logout=true");
+            logout.logoutSuccessHandler(logoutSuccess);
         });
 
         //oauth2 configurations

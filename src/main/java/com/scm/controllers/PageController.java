@@ -89,6 +89,7 @@ public class PageController {
             user.setPhoneNumber(userForm.getPhoneNumber());
             user.setAbout(userForm.getAbout());
             user.setProfilePic("fequfufb");
+            user.setEnabled(false);
             User savedUser = this.userService.saveUser(user);
             System.out.println("user saved: " + savedUser);
             Message message = Message.builder().content("Registration successful").type(MessageType.blue).build();
