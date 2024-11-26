@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id
     private String userId;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String userName;
     @Getter(AccessLevel.NONE)
     private String password;
@@ -46,6 +46,8 @@ public class User implements UserDetails {
             orphanRemoval = true
     )
     private List<Contact> contacts;
+
+    private String emailToken;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> rolesList = new ArrayList<>();

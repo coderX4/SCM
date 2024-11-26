@@ -100,3 +100,21 @@ async function updateContactOnSearch(id,field,value){
     const url = `${baseURL}/user/contact/search/view/${id}/${field}/${value}`;
     window.location.replace(url);
 }
+
+
+function downloadExcelTable() {
+    alert("hi");
+    const table = document.getElementById('dataTable');
+
+    // Convert the table to a worksheet
+    const worksheet = XLSX.utils.table_to_sheet(table);
+
+    // Create a new workbook
+    const workbook = XLSX.utils.book_new();
+
+    // Append the worksheet to the workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+    // Export the workbook as an Excel file
+    XLSX.writeFile(workbook, 'table.xlsx');
+}
