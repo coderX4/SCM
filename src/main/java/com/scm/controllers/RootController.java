@@ -31,6 +31,9 @@ public class RootController {
             model.addAttribute("error", "User not found");
         }
         else{
+            String picurl = user.getProfilePic();
+            System.out.println("pic url : "+picurl);
+            model.addAttribute("picurl", picurl);
             model.addAttribute("userName", user.getUName());
             model.addAttribute("loggedInUser", user);
         }

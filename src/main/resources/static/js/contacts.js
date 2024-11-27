@@ -34,6 +34,7 @@ function closeContactModal(){
 }
 
 async function loadContactdata(id){
+    //function call to load data
     try{
         console.log(id);
         let data = await (await fetch(`${baseURL}/api/contact/${id}`)).json();
@@ -41,8 +42,24 @@ async function loadContactdata(id){
         document.querySelector("#contact_name").innerHTML = data.name;
         document.querySelector("#contact_email").innerHTML = data.email;
         document.querySelector("#contact_address").innerHTML = data.address;
-        document.querySelector("#contact_description").innerHTML = data.description;
-        document.querySelector("#contact_phoneNumber").innerHTML = data.phoneNumber;
+        document.querySelector("#contact_about").innerHTML = data.description;
+        document.querySelector("#contact_phone").innerHTML = data.phoneNumber;
+        document.querySelector("#contact_image").src = data.picture;
+        document.querySelector("#contact_instagram").href = data.instagramLink;
+        document.querySelector("#contact_linkedIn").href = data.linkedinLink;
+        // Update favorite status
+        const contactFavoriteIndicator = document.querySelector("#contact_favorite_indicator");
+        const contactFavoriteText = document.querySelector("#contact_favorite_text");
+
+        if (data.favorite) {
+            contactFavoriteIndicator.classList.remove('bg-red-500');
+            contactFavoriteIndicator.classList.add('bg-green-500');
+            contactFavoriteText.textContent = "Favourite";
+        } else {
+            contactFavoriteIndicator.classList.remove('bg-green-500');
+            contactFavoriteIndicator.classList.add('bg-red-500');
+            contactFavoriteText.textContent = "Not Favourite";
+        }
         openContactModal()
     } catch (error){
         console.log("Error: ",error);
@@ -101,20 +118,3 @@ async function updateContactOnSearch(id,field,value){
     window.location.replace(url);
 }
 
-
-function downloadExcelTable() {
-    alert("hi");
-    const table = document.getElementById('dataTable');
-
-    // Convert the table to a worksheet
-    const worksheet = XLSX.utils.table_to_sheet(table);
-
-    // Create a new workbook
-    const workbook = XLSX.utils.book_new();
-
-    // Append the worksheet to the workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-
-    // Export the workbook as an Excel file
-    XLSX.writeFile(workbook, 'table.xlsx');
-}

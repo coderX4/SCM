@@ -88,7 +88,7 @@ public class PageController {
             user.setEmail(userForm.getEmail());
             user.setPhoneNumber(userForm.getPhoneNumber());
             user.setAbout(userForm.getAbout());
-            user.setProfilePic("fequfufb");
+            user.setProfilePic("https://res.cloudinary.com/dnhrluiqz/image/upload/v1732365762/8231bfe1-500f-451e-84bc-53344aafd04c.jpg");
             user.setEnabled(false);
             User savedUser = this.userService.saveUser(user);
             System.out.println("user saved: " + savedUser);
