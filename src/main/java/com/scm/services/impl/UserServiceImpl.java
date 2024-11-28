@@ -53,27 +53,23 @@ public class UserServiceImpl implements UserService {
         return savedUser;
     }
 
-    public Optional<User> getUserById(String id) {
-        return this.userRepo.findById(id);
+    public User getUserById(String id) {
+        return this.userRepo.findByUserId(id);
     }
 
-    public Optional<User> updateUser(User user) {
+    public User updateUser(User user) {
         User user2 = (User)this.userRepo.findById(user.getUserId()).orElseThrow(() -> {
             return new ResourceNotFoundException("User Not Found");
         });
-        user2.setUserName(user.getUsername());
+        user2.setUserName(user.getUName());
         user2.setPassword(user.getPassword());
-        user2.setEmail(user.getEmail());
         user2.setAbout(user.getAbout());
         user2.setPhoneNumber(user.getPhoneNumber());
         user2.setProfilePic(user.getProfilePic());
-        user2.setEnabled(user.isEnabled());
-        user2.setEmailVerified(user.isEmailVerified());
+        user2.setCloudinaryImagePublicId(user.getCloudinaryImagePublicId());
         user2.setPhoneNumberVerified(user.isPhoneNumberVerified());
-        user2.setProvider(user.getProvider());
-        user2.setProviderUserId(user.getProviderUserId());
         User savedUser = (User)this.userRepo.save(user2);
-        return Optional.ofNullable(savedUser);
+        return savedUser;
     }
 
     public void deleteUser(String id) {

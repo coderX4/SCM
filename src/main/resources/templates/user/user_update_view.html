@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+</head>
+<body>
+<div id="content">
+    <div class="flex justify-center flex-col items-center pt-6 pb-6">
+        <div class="w-full max-w-2xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <form
+                    th:action="@{'/user/profile/update/'+${userId}}"
+                    method="post"
+                    th:object="${userUpdateForm}"
+                    class="space-y-3"
+                    enctype="multipart/form-data">
+                <h5 class="text-xl text-center font-medium text-gray-900 dark:text-white">Update User</h5>
+                <div>
+                    <label for="userName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                    <input type="text" th:field="*{uName}" name="userName" id="userName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Enter your Name" />
+                    <p th:if="${errorMessages != null and errorMessages.containsKey('uName')}"
+                       th:text="${errorMessages['uName']}"
+                       class="text-red-600 px-1 py-2">Username is Required
+                    </p>
+                </div>
+
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
+                    <input type="password" th:field="*{password}" name="password" id="password" placeholder="Enter strong password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"/>
+                </div>
+
+                <div>
+                    <label for="phoneNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone</label>
+                    <input type="text" th:field="*{phoneNumber}" name="phoneNumber" id="phoneNumber" placeholder="Enter contact info" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
+                    <p th:if="${errorMessages != null and errorMessages.containsKey('phoneNumber')}"
+                       th:text="${errorMessages['phoneNumber']}"
+                       class="text-red-600 px-1 py-2">
+                    </p>
+                </div>
+                <div>
+                    <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Yourself</label>
+                    <textarea id="about" th:field="*{about}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write about yourself here..."></textarea>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="contact_picture">Profile Pic</label>
+                    <input th:field="*{profilePic}"
+                           class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                           id="contact_picture" type="file">
+                    <div class="flex justify-center">
+                        <img
+                                class="h-20 rounded-lg shadow m-3"
+                                th:src="*{picture}"
+                                id="upload_image_preview"
+                                alt=""
+                        />
+                    </div>
+                    <p th:if="${errorMessages != null and errorMessages.containsKey('profilePic')}"
+                       th:text="${errorMessages['profilePic']}"
+                       class="text-red-600 px-1 py-2">Username is Required
+                    </p>
+                </div>
+                <div>
+                    <div class="flex items-center mb-4">
+                        <input th:field="*{phoneNumberVerified}"
+                               id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Is this a Phone Number verified ?</label>
+                    </div>
+                </div>
+                <div class=" flex space-x-3 justify-center gap-8">
+                    <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+                    <button type="reset" class="w-full text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{'/js/admin.js'}"></script>
+</body>
+</html>

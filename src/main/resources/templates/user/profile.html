@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{})}"
+      th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{::#modal})}"
       xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
@@ -11,23 +11,47 @@
     <div class="flex justify-center flex-col items-center pt-6 pb-6">
         <div class="w-full max-w-2xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex flex-col items-center">
+                <div th:replace="~{message::messagebox}"></div>
                 <img th:src="@{picurl != null} ? @{${picurl}} : @{/images/default_profile_pic.jpg}" alt="Profile Photo" class="w-44 h-44 rounded-full shadow-lg object-cover mb-6">
                 <h2 class="text-3xl font-semibold text-center mb-2" th:text="${userName}">User Name</h2>
                 <p class="text-gray-600 text-center mb-1" th:text="${loggedInUser.email}">user.email@example.com</p>
                 <p class="text-gray-600 text-center mb-4" th:text="${loggedInUser.phoneNumber}">123-456-7890</p>
                 <p class="text-gray-600 text-center mb-6" th:text="${loggedInUser.about}">About the user...</p>
             </div>
-            <div class="w-full flex justify-between text-sm text-gray-500">
-                <p>Email Verified: <span class="font-medium text-gray-700" th:text="${loggedInUser.emailVerified ? 'YES':'NO'}">No</span></p>
-                <p>Phone Verified: <span class="font-medium text-gray-700" th:text="${loggedInUser.phoneNumberVerified ? 'YES':'NO'}">No</span></p>
+            <div class="w-full flex justify-between items-center text-sm text-gray-500">
+                <!-- Email Verification Section -->
+                <div class="flex items-center space-x-2">
+                    <p class="font-medium">Email Verified:</p>
+                    <div th:classappend="*{loggedInUser.emailVerified} ? 'bg-green-500' : 'bg-red-500'"
+                         class="h-2.5 w-2.5 rounded-full"></div>
+                    <span class="font-medium text-gray-700" th:text="${loggedInUser.emailVerified ? 'YES' : 'NO'}">No</span>
+                </div>
+
+                <!-- Phone Verification Section -->
+                <div class="flex items-center space-x-2">
+                    <p class="font-medium">Phone Verified:</p>
+                    <div th:classappend="*{loggedInUser.phoneNumberVerified} ? 'bg-green-500' : 'bg-red-500'"
+                         class="h-2.5 w-2.5 rounded-full"></div>
+                    <span class="font-medium text-gray-700" th:text="${loggedInUser.phoneNumberVerified ? 'YES' : 'NO'}">No</span>
+                </div>
+            </div>
+
+
+            <div class="mt-6 flex justify-self-center space-x-4">
+                <!-- Update Profile Button -->
+                <button class="px-5 py-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        th:onclick="updateUser([[${loggedInUser.userId}]])">
+                    Update Profile
+                </button>
+                <!-- Delete User Button -->
+                <button class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg shadow hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300"
+                        th:onclick="deleteUser([[${loggedInUser.userId}]])">
+                    Delete Profile
+                </button>
             </div>
         </div>
     </div>
 </div>
+<script id="modal" th:src="@{'/js/user.js'}"></script>
 </body>
 </html>
-
-<!--div>
-    th:text="${loggedInUser.emailVerified ? 'YES':'NO'}"
-    th:text="${loggedInUser.phoneVerified ? 'YES':'NO'}"
-</div-->

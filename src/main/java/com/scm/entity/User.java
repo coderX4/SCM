@@ -47,6 +47,8 @@ public class User implements UserDetails {
     )
     private List<Contact> contacts;
 
+    private String cloudinaryImagePublicId;
+
     private String emailToken;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -95,4 +97,5 @@ public class User implements UserDetails {
     public String getUName() {
         return this.userName;
     }
+
 }
