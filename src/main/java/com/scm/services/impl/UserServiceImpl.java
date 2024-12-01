@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService {
         user2.setProfilePic(user.getProfilePic());
         user2.setCloudinaryImagePublicId(user.getCloudinaryImagePublicId());
         user2.setPhoneNumberVerified(user.isPhoneNumberVerified());
+        user2.setPassKeyForMail(user.getPassKeyForMail());
         User savedUser = (User)this.userRepo.save(user2);
         return savedUser;
     }

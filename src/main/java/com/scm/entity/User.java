@@ -51,6 +51,8 @@ public class User implements UserDetails {
 
     private String emailToken;
 
+    private String passKeyForMail;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> rolesList = new ArrayList<>();
 

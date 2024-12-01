@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{user/user_base:: parent1(~{::#content},~{::title},~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Getting Started With SCM Mails</title>
+</head>
+<body>
+<div id="content">
+    <div class="flex justify-center flex-col items-center">
+        <h1 class="text-5xl">Welcome to Mail Starter Page</h1>
+        <div class="mt-6 pt-3 mb-6 pb-3 max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+            <form th:action="@{'/user/mails/save-app-password/'+${loggedInUser.email}}" method="post">
+                <label for="password" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Enter Your App Password
+                </label>
+                <input
+                        type="text"
+                        name="password"
+                        id="password"
+                        class="w-full mb-4 p-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter your App password">
+                <p id="helper-text-explanation" class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                    We’ll never share your details. Read our
+                    <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                        Privacy Policy
+                    </a>.
+                </p>
+                <button
+                        type="submit"
+                        class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600">
+                    Save
+                    <svg class="w-4 h-4 ms-2 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" aria-hidden="true">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
