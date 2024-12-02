@@ -1,9 +1,15 @@
 package com.scm.controllers;
 
+import com.scm.entity.Contact;
 import com.scm.entity.User;
+import com.scm.forms.ContactSearchForm;
+import com.scm.forms.MailForm;
+import com.scm.helper.AppConstants;
+import com.scm.services.ContactService;
 import com.scm.services.EmailService;
 import com.scm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class MailController {
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private ContactService contactService;
 
     @Autowired
     private UserService userService;
@@ -45,14 +54,36 @@ public class MailController {
 
     @GetMapping({"/mail-view/{userMail}"})
     public String mailerview(@PathVariable("userMail") String userMail, Model model) {
-
         User user = userService.getUserByEmail(userMail);
+        Page<Contact> pagecontacts = contactService.getByUser(user,0,AppConstants.PAGE_SIZE,"name","asc");
+        model.addAttribute("contacts", pagecontacts);
+        model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
+        model.addAttribute("contactSearchForm", new ContactSearchForm());
+        model.addAttribute("userMail", userMail);
+        return "user/mails/mail_front";
+    }
 
-        String apppassword = user.getPassKeyForMail();
-        String to = "nietclllg@gmail.com";
-        String subject = "Users MAilingn";
-        String body = "Maiking to a friend";
-        emailService.sendEmailToUser(userMail, to, subject, body, apppassword);
-        return "redirect:/";
+    @GetMapping({"/contact-send-mails/{from}/{to}"})
+    public String mailTempFront(@PathVariable("from") String from,
+                                @PathVariable("to") String to,
+                                Model model){
+        User user = userService.getUserByEmail(from);
+        MailForm mailForm = new MailForm();
+        mailForm.setFrom(from);
+        mailForm.setTo(to);
+        model.addAttribute("mailForm", mailForm);
+        return "user/mails/mail_template";
+    }
+
+    @PostMapping({"/handler_mail"})
+    public String SendTheMail(@ModelAttribute MailForm mailForm){
+        var user = userService.getUserByEmail(mailForm.getFrom());
+        String passKey = user.getPassKeyForMail();
+        String from = mailForm.getFrom();
+        String to = mailForm.getTo();
+        String subject = mailForm.getSubject();
+        String body = mailForm.getBody();
+        emailService.sendEmailToUser(from, to, subject, body,passKey);
+        return "redirect:/user/mails/mail-view/"+from;
     }
 }

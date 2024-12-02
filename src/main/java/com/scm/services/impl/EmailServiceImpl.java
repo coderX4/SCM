@@ -1,7 +1,9 @@
 package com.scm.services.impl;
 
 import com.scm.config.DynamicMailSender;
+import com.scm.entity.User;
 import com.scm.services.EmailService;
+import com.scm.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

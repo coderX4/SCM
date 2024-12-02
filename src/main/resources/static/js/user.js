@@ -31,10 +31,3 @@ async function updateUser(id){
     window.location.replace(url);
 }
 
-//mails
-async function startMails(usermail){
-    console.log(usermail);
-    const url = `${baseURL}/user/mails/start-mails/${usermail}`;
-    window.location.replace(url);
-}
-

@@ -165,7 +165,7 @@
                 </li>
 
 
-                <li th:each="index : ${#numbers.sequence(0, contacts.totalPages)}"
+                <li th:each="index : ${#numbers.sequence(0, contacts.totalPages - 1)}"
                     th:class="${contacts.number == index}
                     ? 'bg-blue-200 text-black dark:bg-gray-600 dark:text-white-200'
                     : 'bg-white text-gray-500 dark:bg-gray-800 dark:text-gray-400'">

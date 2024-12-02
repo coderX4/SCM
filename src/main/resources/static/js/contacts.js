@@ -117,4 +117,3 @@ async function updateContactOnSearch(id,field,value){
     const url = `${baseURL}/user/contact/search/view/${id}/${field}/${value}`;
     window.location.replace(url);
 }
-

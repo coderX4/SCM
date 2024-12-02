@@ -10,6 +10,7 @@ import java.util.Properties;
 public class DynamicMailSender {
 
     public JavaMailSender getMailSender(String username, String password) {
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
