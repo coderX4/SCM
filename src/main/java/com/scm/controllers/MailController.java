@@ -5,9 +5,12 @@ import com.scm.entity.User;
 import com.scm.forms.ContactSearchForm;
 import com.scm.forms.MailForm;
 import com.scm.helper.AppConstants;
+import com.scm.helper.Message;
+import com.scm.helper.MessageType;
 import com.scm.services.ContactService;
 import com.scm.services.EmailService;
 import com.scm.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -76,7 +79,7 @@ public class MailController {
     }
 
     @PostMapping({"/handler_mail"})
-    public String SendTheMail(@ModelAttribute MailForm mailForm){
+    public String SendTheMail(@ModelAttribute MailForm mailForm, HttpSession session){
         var user = userService.getUserByEmail(mailForm.getFrom());
         String passKey = user.getPassKeyForMail();
         String from = mailForm.getFrom();
@@ -84,6 +87,8 @@ public class MailController {
         String subject = mailForm.getSubject();
         String body = mailForm.getBody();
         emailService.sendEmailToUser(from, to, subject, body,passKey);
+        Message message = Message.builder().content("Email Sent successfully...").type(MessageType.green).build();
+        session.setAttribute("message", message);
         return "redirect:/user/mails/mail-view/"+from;
     }
 }
