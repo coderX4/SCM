@@ -49,7 +49,6 @@ public class SrchController {
     ){
         String field = contactSearchForm.getField();
         String value = contactSearchForm.getValue();
-        System.out.println("field: "+field+" and keyword: "+value);
         var user = userService.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication));
         Page<Contact> pageContact = null;
         if(field.equalsIgnoreCase("name")){
@@ -77,8 +76,6 @@ public class SrchController {
             Model model
     ) {
         contactService.delete(contactId);
-        System.out.println("Contact deleted successfully");
-        System.out.println("Field: " + field + ", Value: " + value);
         return "redirect:/user/contact/search?size=" + AppConstants.PAGE_SIZE + "&page=0&field=" + field + "&value=" + value;
     }
 

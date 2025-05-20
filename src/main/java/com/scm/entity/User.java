@@ -54,7 +54,14 @@ public class User implements UserDetails {
     private String passKeyForMail;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "user_roles_list",
+            joinColumns = @JoinColumn(name = "user_user_id")
+    )
+    @Column(name = "role")
+    @OrderColumn(name = "role_index") // Forces Hibernate to create a primary key
     private List<String> rolesList = new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

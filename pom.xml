@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.scm</groupId>
@@ -13,21 +13,33 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>SCM</name>
     <description>SCM</description>
-    <url/>
+    <url>https://github.com/coderX4/SCM</url>
+
     <licenses>
-        <license/>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
     </licenses>
+
     <developers>
-        <developer/>
+        <developer>
+            <id>coderX4</id>
+            <name>Deep Ghosh</name>
+            <email>deepghosh146@gmail.com</email>
+        </developer>
     </developers>
+
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <connection>scm:git:git://github.com/coderX4/SCM.git</connection>
+        <developerConnection>scm:git:ssh://github.com:coderX4/SCM.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/coderX4/SCM</url>
     </scm>
+
     <properties>
-        <java.version>17</java.version>
+        <java.version>18</java.version>
     </properties>
     <dependencies> 
         <dependency>

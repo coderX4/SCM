@@ -20,22 +20,25 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private DynamicMailSender dynamicMailSender;
 
+    @Value("${scm.mailer.id}")
+    private String mailerId;
+    @Value("${scm.mailer.key}")
+    private String mailerKey;
+
     //verification mailer from the scm app
     @Override
     public void sendEmail(String to, String subject, String body) {
 
         JavaMailSender mailSender = dynamicMailSender.getMailSender(
-                "smartcmapp@gmail.com",
-                "llcebyfaxqhxkizf"
+                mailerId, mailerKey
         );
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("smartcmapp@gmail.com");
+        message.setFrom(mailerId);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        log.info("Sending email to: " + to);
         mailSender.send(message);
     }
 
@@ -44,7 +47,6 @@ public class EmailServiceImpl implements EmailService {
 
         JavaMailSender mailSender = dynamicMailSender.getMailSender(
                 from, password
-                //"cqrsjjejirmyyydu"
         );
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -53,23 +55,6 @@ public class EmailServiceImpl implements EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        log.info("Sending email from: " + from);
-        log.info("Sending email to: " + to);
         mailSender.send(message);
-    }
-
-    @Override
-    public void sendEmailToUsers(String[] to, String subject, String body) {
-
-    }
-
-    @Override
-    public void sendEmailWithHtml(String to, String subject, String htmlContent) {
-
-    }
-
-    @Override
-    public void sendEmailWithFile(String to, String subject, String body, File file) {
-
     }
 }

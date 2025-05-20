@@ -22,7 +22,6 @@ public class RootController {
         if(authentication == null){
             return;
         }
-        System.out.println("Added Logged In User Information");
         String user1 = Helper.getEmailOfLoggedInUser(authentication);
         logger.info("User: {}", user1);
         User user = userService.getUserByEmail(user1);
@@ -32,7 +31,6 @@ public class RootController {
         }
         else{
             String picurl = user.getProfilePic();
-            System.out.println("pic url : "+picurl);
             model.addAttribute("picurl", picurl);
             model.addAttribute("userName", user.getUName());
             model.addAttribute("loggedInUser", user);

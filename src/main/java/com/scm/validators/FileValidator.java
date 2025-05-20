@@ -12,8 +12,6 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
         if(file == null || file.isEmpty()){
-//            context.disableDefaultConstraintViolation();
-//            context.buildConstraintViolationWithTemplate("File cannot be empty").addConstraintViolation();
             return true;
         }
         if(file.getSize() > MAX_FILE_SIZE){
@@ -21,15 +19,6 @@ public class FileValidator implements ConstraintValidator<ValidFile, MultipartFi
             context.buildConstraintViolationWithTemplate("File should be less than 2MB" ).addConstraintViolation();
             return false;
         }
-//        //resolution
-//        try {
-//            BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
-//            if(bufferedImage .getHeight() > 1080 || bufferedImage .getWidth() > 1920){}
-//
-//            return true;
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         return true;
     }
 }

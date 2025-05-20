@@ -26,8 +26,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailService emailService;
 
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
     public UserServiceImpl() {
     }
 

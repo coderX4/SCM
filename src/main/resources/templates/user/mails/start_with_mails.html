@@ -6,8 +6,22 @@
 </head>
 <body>
 <div id="content">
-    <div class="flex justify-center flex-col items-center">
+    <!--div class="flex flex-col justify-center items-center">
         <h1 class="text-5xl">Welcome to Mail Starter Page</h1>
+        <div class="flex flex-col mt-6 mb-6 max-w-md p-6 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 dark:bg-gray-800 dark:text-yellow-100 rounded-md shadow">
+            <h2 class="text-lg font-semibold mb-2">Steps to Generate a Google App Password</h2>
+            <ol class="list-decimal list-inside space-y-2 text-sm">
+                <li>Go to your <a href="https://myaccount.google.com/security" target="_blank" class="text-blue-600 hover:underline">Google Account Security Settings</a>.</li>
+                <li>Under the "Signing in to Google" section, make sure 2-Step Verification is <strong>enabled</strong>.</li>
+                <li>After enabling 2FA, you’ll see an option for <strong>App Passwords</strong>.</li>
+                <li>Click on <strong>App Passwords</strong>. You may need to re-enter your Google password.</li>
+                <li>Choose <strong>"Mail"</strong> as the app and <strong>"Other (Custom name)"</strong> as the device.</li>
+                <li>Enter a name like <code>SCM Mail App</code> and click <strong>Generate</strong>.</li>
+                <li>Google will generate a 16-character App Password. <strong>Copy it</strong>.</li>
+                <li>Paste it in the field below and click <strong>Save</strong>.</li>
+            </ol>
+        </div>
+
         <div class="mt-6 pt-3 mb-6 pb-3 max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
             <form th:action="@{'/user/mails/save-app-password/'+${loggedInUser.email}}" method="post">
                 <label for="password" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -36,7 +50,56 @@
             </form>
         </div>
 
+    </div-->
+    <div class="flex flex-col items-center justify-center px-4">
+        <h1 class="text-5xl text-center mt-10 mb-8">Welcome to Mail Starter Page</h1>
+
+        <div class="flex flex-col md:flex-row gap-6 w-full max-w-5xl mb-8">
+            <!-- Instructions Div -->
+            <div class="w-full md:w-1/2 p-6 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 dark:bg-gray-800 dark:text-yellow-100 rounded-md shadow">
+                <h2 class="text-lg font-semibold mb-2">Steps to Generate a Google App Password</h2>
+                <ol class="list-decimal list-inside space-y-2 text-sm">
+                    <li>Go to your <a href="https://myaccount.google.com/security" target="_blank" class="text-blue-600 hover:underline">Google Account Security Settings</a>.</li>
+                    <li>Under "Signing in to Google", enable <strong>2-Step Verification</strong>.</li>
+                    <li>After that, click on <strong>App Passwords</strong> and re-enter your password if asked.</li>
+                    <li>Select <strong>"Mail"</strong> as the app and <strong>"Other (Custom name)"</strong> as the device.</li>
+                    <li>Enter a name like <code>SCM Mail App</code> and click <strong>Generate</strong>.</li>
+                    <li>Copy the generated 16-character password.</li>
+                    <li>Paste it into the field and click <strong>Save</strong>.</li>
+                </ol>
+            </div>
+
+            <!-- Form Div -->
+            <div class="w-full md:w-1/2 p-6 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                <form th:action="@{'/user/mails/save-app-password/'+${loggedInUser.email}}" method="post">
+                    <label for="password" class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        Enter Your App Password
+                    </label>
+                    <input
+                            type="text"
+                            name="password"
+                            id="password"
+                            class="w-full mb-4 p-3 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter your App password">
+                    <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                        We’ll never share your details. Read our
+                        <a href="#" class="font-medium text-blue-600 hover:underline dark:text-blue-500">
+                            Privacy Policy
+                        </a>.
+                    </p>
+                    <button
+                            type="submit"
+                            class="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600">
+                        Save
+                        <svg class="w-4 h-4 ms-2 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10" aria-hidden="true">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
+
 </div>
 </body>
 </html>

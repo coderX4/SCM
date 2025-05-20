@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{base:: parent(~{::#content},~{::title},~{})}"
-      xmlns="http://www.w3.org/1999/html">
+      th:replace="~{base:: parent(~{::#content},~{::title},~{})}">
 <head>
     <meta charset="UTF-8">
     <title>Contact</title>
 </head>
 <body>
-<div id="content">
+<div id="content" class="pt-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+    <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-8 sm:p-12">
+        <h2 class="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-2">Get in Touch</h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-8">We'd love to hear from you. Please fill out the form below.</p>
+
+        <div th:replace="~{message::messagebox}"></div>
+
+        <form th:action="@{'/contactus_mail'}" method="post" th:object="${contactUs}" enctype="multipart/form-data" class="space-y-6">
+            <div>
+                <label for="name" class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white">Name</label>
+                <input th:field="*{sname}" type="text" id="name" placeholder="Your full name"
+                       class="w-full px-4 py-3 text-sm rounded-xl border border-gray-300 bg-gray-50 text-gray-900
+                              focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div>
+                <label for="to" class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white">Email</label>
+                <input th:field="*{dto}" type="email" id="to" placeholder="Your email address"
+                       class="w-full px-4 py-3 text-sm rounded-xl border border-gray-300 bg-gray-50 text-gray-900
+                              focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+            </div>
+
+            <div>
+                <label for="body" class="block mb-2 text-sm font-semibold text-gray-700 dark:text-white">Message</label>
+                <textarea th:field="*{sbody}" id="body" rows="6" placeholder="Write your message here..."
+                          class="w-full px-4 py-3 text-sm rounded-xl border border-gray-300 bg-gray-50 text-gray-900
+                                 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+            </div>
+
+            <div class="text-center pt-4">
+                <button type="submit"
+                        class="inline-block w-full sm:w-auto px-8 py-3 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700
+                               focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-xl transition-all duration-150 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-700">
+                    Send Message
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>
